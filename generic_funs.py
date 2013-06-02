@@ -6,10 +6,10 @@ import json
 import pickle
 import multiprocessing
 import sys
-from scipy.spatial import KDTree
-from geocode import Geo
+#from scipy.spatial import KDTree
+#from geocode import Geo
 from nltk import SnowballStemmer
-from feature_extraction.text import FeatureCountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 import re
 
 """
@@ -156,17 +156,17 @@ class gen_funs(object):
             x = x.decode('utf-8', 'ignore')
         try:
             stemmer = SnowballStemmer('spanish')
-            x1  = FeatureCountVectorizer.preprocess_unicode_text(x,stemmer.stem)
+            x1  = CountVectorizer.preprocess_unicode_text(x,stemmer.stem)
             if(x1 == ''):
                 x1 = x
 #            print x1
             stemmer = SnowballStemmer('english')
-            x2  = FeatureCountVectorizer.preprocess_unicode_text(x,stemmer.stem)
+            x2  = CountVectorizer.preprocess_unicode_text(x,stemmer.stem)
             if(x2 == ''):
                 x2 = x
 #            print x2
             stemmer = SnowballStemmer('portuguese')
-            x3  = FeatureCountVectorizer.preprocess_unicode_text(x,stemmer.stem)
+            x3  = CountVectorizer.preprocess_unicode_text(x,stemmer.stem)
             if(x3 == ''):
                 x3 = x
 #            print x3

@@ -6,7 +6,7 @@ import nltk
 import multiprocessing
 import datetime
 import sys
-from base_funs import funs
+import generic_funs
 
 # Description: The function is to stem the tweet text
 # Paramteter: content is the text of each raw tweet
@@ -40,7 +40,7 @@ for keyWord in keyWords:
     keyWordDict[stem_word(keyWord.strip().lower())]=i
     i=i+1
 
-#funs.json_save('transportation_keywords.json', keyWordDict.keys())
+#generic_funs.json_save('transportation_keywords.json', keyWordDict.keys())
 
 keyWordDict['road'] = 1
 keyWordDict['traffic'] = 1
@@ -163,7 +163,7 @@ class Task_stats_calc(object):
                         pass
                 print '{}: totally {} tweets processed'.format(rawTwitterFile, len(rawTweetFiltered))
                 sys.stdout.flush()
-        funs.json_save(output_file_path, rawTweetFiltered)
+        generic_funs.json_save(output_file_path, rawTweetFiltered)
     def __str__(self):
         return '%s processed!' % (self.str_dt)
         
