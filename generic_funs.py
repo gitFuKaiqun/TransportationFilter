@@ -6,10 +6,10 @@ import json
 import pickle
 import multiprocessing
 import sys
-#from scipy.spatial import KDTree
+from scipy.spatial import KDTree
 #from geocode import Geo
 from nltk import SnowballStemmer
-from sklearn.feature_extraction.text import CountVectorizer
+from feature_extraction.text import FeatureCountVectorizer
 import re
 
 """
@@ -48,7 +48,7 @@ class gen_funs(object):
         player = [d['expr'] for d in enmsg['entities'] if(d['expr'] and d['expr'][:1] =='@')]
         http = [d['expr'] for d in enmsg['entities'] if(d['expr'] and d['expr'][:4] == 'http')]
         return [text,hashtag,player,http]
-    
+
     @staticmethod
     def concatenate_arrays(col1, col2):
 #        print col1
@@ -57,7 +57,7 @@ class gen_funs(object):
             return concatenate((col1.reshape(n_cols,1), col2.reshape(n_cols,1)), axis = 1)
         else:
             return concatenate((col1, col2), axis = 1)
-            
+
     @staticmethod
     def str_code(s):
         try:
@@ -65,27 +65,27 @@ class gen_funs(object):
         except TypeError:
             pass
         return s
-        
+
     @staticmethod
     def str_len_dict(dict_obj):
         return str(len(dict_obj.keys()))
-    
+
     @staticmethod
     def new_folder(folder):
         if not os.path.exists(folder):
             os.makedirs(folder)
-    
+
     @staticmethod
     def gt(dt_str):
         try:
             dt_str = dt_str.replace('+00:00', '')
             dt, _, us = dt_str.partition(".")
             dt = datetime.strptime(dt, "%Y-%m-%dT%H:%M:%S")
-        except: 
+        except:
             print dt_str
             dt = None
         return dt
-    
+
     @staticmethod
     def gt1(dt_str):
         try:
@@ -106,16 +106,16 @@ class gen_funs(object):
             print dt_str
             dt = None
         return dt
- 
+
 
     @staticmethod
     def save_to_pkl_file(obj, out_file):
-    
+
         with open(out_file, "wb") as output:
             pickle.dump(obj, output,  pickle.HIGHEST_PROTOCOL)
 #        with open(out_file, "wb") as output:
 #            cPickle.dump(obj, output, cPickle.HIGHEST_PROTOCOL)
-    
+
     ##    fp = open(out_file, 'wb')
     ##    pickle.dump(obj, fp)
     ##    fp.close()
@@ -130,43 +130,43 @@ class gen_funs(object):
         json_data = open(f, 'r')
         data = json.load(json_data, encoding='utf-8')
         return data
-    
-    
+
+
     @staticmethod
     def json_save(f, data):
         f = open(f, "w")
         f.write(json.dumps(data))
         f.close()
-    
+
     @staticmethod
     def embers_stem(x):
         """
         DESCRIPTION
         It will do stemming for words in x considering english, spanish and portuguese
-    
+
         INPUT
         x: a tweet text, or other sentense or paragraph
-    
+
         OUTPUT
         the tweet text after stemming.
-    
+
         """
         x = x.lower()
         if isinstance(x, unicode) == False:
             x = x.decode('utf-8', 'ignore')
         try:
             stemmer = SnowballStemmer('spanish')
-            x1  = CountVectorizer.preprocess_unicode_text(x,stemmer.stem)
+            x1  = FeatureCountVectorizer.preprocess_unicode_text(x,stemmer.stem)
             if(x1 == ''):
                 x1 = x
 #            print x1
             stemmer = SnowballStemmer('english')
-            x2  = CountVectorizer.preprocess_unicode_text(x,stemmer.stem)
+            x2  = FeatureCountVectorizer.preprocess_unicode_text(x,stemmer.stem)
             if(x2 == ''):
                 x2 = x
 #            print x2
             stemmer = SnowballStemmer('portuguese')
-            x3  = CountVectorizer.preprocess_unicode_text(x,stemmer.stem)
+            x3  = FeatureCountVectorizer.preprocess_unicode_text(x,stemmer.stem)
             if(x3 == ''):
                 x3 = x
 #            print x3

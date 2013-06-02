@@ -240,9 +240,9 @@ def check_isTop25Account(tweet):
 def main():
 #    return 
     
-    input_folder = 'H:/us_twitter_data/2013-02'
+    input_folder = 'G:/TwitterData_Dpbx/2013-02'
 #    input_folder = 'J:\Python\ICDM\input'
-    output_folder = 'H:/us_twitter_data/filtered'
+    output_folder = 'G:/TwitterData_Dpbx/filtered'
 #    output_folder = 'J:\Python\ICDM\output'    
     raw_tweet_files = [rawFile for rawFile in os.listdir(input_folder) if rawFile.endswith('.gz')]
     
