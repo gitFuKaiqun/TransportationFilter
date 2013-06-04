@@ -6,7 +6,7 @@ import nltk
 import multiprocessing
 import datetime
 import sys
-import generic_funs
+from generic_funs import gen_funs
 
 # Description: The function is to stem the tweet text
 # Paramteter: content is the text of each raw tweet
@@ -40,7 +40,7 @@ for keyWord in keyWords:
     keyWordDict[stem_word(keyWord.strip().lower())]=i
     i=i+1
 
-#generic_funs.json_save('transportation_keywords.json', keyWordDict.keys())
+#funs.json_save('transportation_keywords.json', keyWordDict.keys())
 
 keyWordDict['road'] = 1
 keyWordDict['traffic'] = 1
@@ -116,7 +116,7 @@ class Task_stats_calc(object):
         
     def __call__(self):
 
-        output_file_path = self.output_folder+"/"+self.str_dt + '.txt' 
+        output_file_path = self.output_folder+"/"+self.str_dt + '.txt'
         if os.path.exists(output_file_path):
             return
             
@@ -163,7 +163,8 @@ class Task_stats_calc(object):
                         pass
                 print '{}: totally {} tweets processed'.format(rawTwitterFile, len(rawTweetFiltered))
                 sys.stdout.flush()
-        generic_funs.json_save(output_file_path, rawTweetFiltered)
+        #gen_funs.new_folder(output_file_path)
+        gen_funs.json_save(output_file_path, rawTweetFiltered)
     def __str__(self):
         return '%s processed!' % (self.str_dt)
         
@@ -238,16 +239,15 @@ def check_isTop25Account(tweet):
     return False
 
 def main():
-#    return 
     
     input_folder = 'G:/TwitterData_Dpbx/2013-02'
 #    input_folder = 'J:\Python\ICDM\input'
-    output_folder = 'G:/TwitterData_Dpbx/filtered'
+    output_folder = 'G:/TwitterData_Dpbx/1/filtered'
 #    output_folder = 'J:\Python\ICDM\output'    
     raw_tweet_files = [rawFile for rawFile in os.listdir(input_folder) if rawFile.endswith('.gz')]
     
     dict_str_dt = dict()
-    for filename in raw_tweet_files:
+    for filename in raw_tweet_files[0:2]:
         filename = filename.replace('tweets.', '')
         idx = filename.find('T')
         str_dt = filename[0:idx]
