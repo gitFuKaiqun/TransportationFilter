@@ -11,7 +11,7 @@ from collections import defaultdict
 from types import DictType
 from pprint import pprint
 
-def iterate(raw=False, filters=True):
+def iterate(raw=False, filters=True, inputList=[]):
   """
   Iterate through tweets on stdin, skipping junk.
   """
@@ -19,9 +19,9 @@ def iterate(raw=False, filters=True):
   has_id = 0
   seen_dates = set()
   readingFile = open('G:/TwitterData/tweets.2013-01-26', 'r')
-  for i, line in enumerate(readingFile):
+  for i, line in enumerate(inputList):
     try:
-      myjson = json.loads(line)
+      myjson = json.loads(str(line))
       if not isinstance(myjson, dict): raise ValueError("bad line")
       num_valid += 1
       has_id += ('id' in myjson)

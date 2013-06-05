@@ -7,6 +7,7 @@ import multiprocessing
 import datetime
 import sys
 from generic_funs import gen_funs
+import geo_filter
 
 # Description: The function is to stem the tweet text
 # Paramteter: content is the text of each raw tweet
@@ -164,7 +165,8 @@ class Task_stats_calc(object):
                 print '{}: totally {} tweets processed'.format(rawTwitterFile, len(rawTweetFiltered))
                 sys.stdout.flush()
         #gen_funs.new_folder(output_file_path)
-        gen_funs.json_save(output_file_path, rawTweetFiltered)
+        geo_filter.main(rawTweetFiltered)
+        #gen_funs.json_save(output_file_path, rawTweetFiltered)
     def __str__(self):
         return '%s processed!' % (self.str_dt)
         
