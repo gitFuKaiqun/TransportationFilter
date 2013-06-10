@@ -165,7 +165,7 @@ class Task_stats_calc(object):
                 print '{}: totally {} tweets processed'.format(rawTwitterFile, len(rawTweetFiltered))
                 sys.stdout.flush()
         #gen_funs.new_folder(output_file_path)
-        geo_filter.main(rawTweetFiltered)
+        geo_filter.Geo_C(rawTweetFiltered)
         #gen_funs.json_save(output_file_path, rawTweetFiltered)
     def __str__(self):
         return '%s processed!' % (self.str_dt)

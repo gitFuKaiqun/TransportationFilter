@@ -21,7 +21,7 @@ def iterate(raw=False, filters=True, inputList=[]):
   readingFile = open('G:/TwitterData/tweets.2013-01-26', 'r')
   for i, line in enumerate(inputList):
     try:
-      myjson = json.loads(str(line))
+      myjson = line
       if not isinstance(myjson, dict): raise ValueError("bad line")
       num_valid += 1
       has_id += ('id' in myjson)
@@ -34,10 +34,11 @@ def iterate(raw=False, filters=True, inputList=[]):
         myjson['created_at_datetime'] = d
         myjson['created_at_ymd'] = ymd
       if raw:
-        yield line.strip(), myjson
+        yield str(line).strip(), myjson
       else:
         yield myjson
-    except ValueError, e:
+    except Exception, e:
+      print e
       pass
       # print>>sys.stderr, "bad myjson object: ", line
     if False and ((i + 1) % 100000) == 0:

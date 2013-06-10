@@ -12,7 +12,7 @@ import sys, os, re
 import twokenize
 from hose_util import lookup, iterate, json
 
-def main(intput):
+def Geo_C(intput):
     OneCoord = r'([-+]?\d{1,3}\.\d{3,})'
     Separator = r', ?'
     LatLong = re.compile(OneCoord + Separator + OneCoord, re.U)
@@ -85,12 +85,23 @@ def main(intput):
         continue
 
 
+
       out = [
           # 'GEO ' + loc_type,
+          str(record['id']),
           record['user'].encode('utf-8'),
+          record['date'].encode('utf-8'),
+          str(record['lonlat'][0]) + '+' + str(record['lonlat'][1]),
+          record['text'].encode('utf-8')
           # json.dumps(lookup(tweet, 'user.location')),
           # json.dumps(lookup(tweet, 'source')),
-          json.dumps(record),
+          # json.dumps(record),
       ]
 
+      TempVar = record
+
       print '\t'.join(out)
+
+      return '\t'.join(out)
+
+
